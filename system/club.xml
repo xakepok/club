@@ -7,7 +7,7 @@
 	<authorUrl>https://your.xakepok.com</authorUrl>
 	<copyright>A copyright</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description>PLG_CLUB_XML_DESCRIPTION</description>
 
 	<!-- Language files -->
@@ -31,6 +31,12 @@
 					type="usergrouplist"
 					label="PLG_CLUB_PARAMS_GROUP"
 					description="PLG_CLUB_PARAMS_GROUP_DESC"
+				/>
+				<field
+					name="group_bad"
+					type="usergrouplist"
+					label="PLG_CLUB_PARAMS_GROUP_NO"
+					description="PLG_CLUB_PARAMS_GROUP_NO_DESC"
 				/>
 			</fieldset>
 		</fields>

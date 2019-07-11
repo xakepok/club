@@ -49,7 +49,8 @@ class plgSystemClub extends CMSPlugin
 	public function onBeforeRender(): void
     {
         $groupID = $this->params->get('group', 0);
-        if (JFactory::getUser()->guest || $groupID === 0) return;
+        $groupBadID = $this->params->get('group_bad', 0);
+        if (JFactory::getUser()->guest || $groupID === 0 || $groupBadID === 0) return;
         $userID = JFactory::getUser()->id;
         $userGroups = JUserHelper::getUserGroups($userID);
         $db =& JFactory::getDbo();
@@ -64,10 +65,16 @@ class plgSystemClub extends CMSPlugin
             if (!in_array($groupID, $userGroups)) {
                 JUserHelper::addUserToGroup($userID, $groupID);
             }
+            if (in_array($groupBadID, $userGroups)) {
+                JUserHelper::removeUserFromGroup($userID, $groupBadID);
+            }
         }
         else {
             if (in_array($groupID, $userGroups)) {
                 JUserHelper::removeUserFromGroup($userID, $groupID);
+            }
+            if (!in_array($groupBadID, $userGroups)) {
+                JUserHelper::addUserToGroup($userID, $groupBadID);
             }
         }
     }
