@@ -56,20 +56,12 @@ class plgSystemClub extends CMSPlugin
         $db =& JFactory::getDbo();
         $query = $db->getQuery(true);
         $query
-            ->select("max(`dat`) + interval 1 month as `is_club`")
-            ->from("`#__payments`")
+            ->select("`expire`")
+            ->from("`#__rw_club`")
             ->where("`userID` = {$userID}")
-            ->having("`is_club` > current_timestamp");
+            ->where("`expire` > current_timestamp");
         $result = $db->setQuery($query)->loadResult();
-        if ($result !== null) {
-            if (!in_array($groupID, $userGroups)) {
-                JUserHelper::addUserToGroup($userID, $groupID);
-            }
-            if (in_array($groupBadID, $userGroups)) {
-                JUserHelper::removeUserFromGroup($userID, $groupBadID);
-            }
-        }
-        else {
+        if ($result === null) {
             if (in_array($groupID, $userGroups)) {
                 JUserHelper::removeUserFromGroup($userID, $groupID);
             }
